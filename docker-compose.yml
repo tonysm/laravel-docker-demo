@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  app:
+    image: tonysm/testing
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    ports:
+      - "80:80"
+    networks:
+      - front
+      - back
+  db:
+    image: mysql:5.7
+    volumes:
+     - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "homestead"
+      MYSQL_USER: "homestead"
+      MYSQL_PASSWORD: "secret"
+    networks:
+      - back
+
+networks:
+  front:
+    driver: "bridge"
+  back:
+    driver: "bridge"
+
+volumes:
+  dbdata:
+    driver: "local"
