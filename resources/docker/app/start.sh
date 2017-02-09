@@ -1,13 +1,8 @@
 #!/usr/bin/env sh
 
 # wait the migrations to be ok, until proceed
-n=0
-until [ $n -ge 5 ]
-do
-  php artisan migrate && break
-  n=$[$n+1]
-  sleep 15
-done
+sleep 15
+php artisan migrate
 
 php artisan route:clear
 php artisan cache:clear
